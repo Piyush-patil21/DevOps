@@ -1,7 +1,7 @@
 # Path to the service account JSON key file (use forward slashes on Windows too)
 # variable "credentials_path" {
 #   type    = string
-#   default = "D:/Piyush_Desktop/Terra/rgt-data-analyst.json"
+#   default = "key_credential_path"
 # }
 
 # variable "auth_token" {
@@ -11,7 +11,7 @@
 
 variable "project" {
   type        = string
-  default = "project-ops-478805"
+  default = "<project-id>"
 }
 
 variable "region" {
