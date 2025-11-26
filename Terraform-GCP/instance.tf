@@ -1,5 +1,5 @@
 # resource "google_service_account" "fristysa" {
-#   account_id   = "project-ops-478805"
+#   account_id   = "<project-id>"
 #   project      = var.project
 #   display_name = "Compute Engine default service account"
 # }
@@ -13,7 +13,7 @@
 #     network = "default"
 #   }
 #   metadata = {
-#     ssh-keys = "piyush:${file("D:/Piyush_Desktop/Terra/piyush_key")}"
+#     ssh-keys = "piyush:${file("<key-location_in_local_machine>")}"
 #   }
 
 #   boot_disk {
