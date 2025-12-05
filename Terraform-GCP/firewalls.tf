@@ -7,7 +7,6 @@ resource "google_compute_firewall" "firsty-firewall" {
     ports    = ["22, 80, 443, 8080"]
   }
 
-  source_ranges = [""]
-
+  source_ranges = ["0.0.0.0/0"]
 
 }

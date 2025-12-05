@@ -26,7 +26,7 @@ variable "gcp_service_list" {
   default = [
     "compute.googleapis.com",
     "iam.googleapis.com",
-    "storage.googleapis.com",
+    # "storage.googleapis.com",
     "secretmanager.googleapis.com"
   ]
 }
