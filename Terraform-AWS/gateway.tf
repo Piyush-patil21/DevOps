@@ -8,11 +8,11 @@ resource "aws_internet_gateway" "terra-ig" {
 
 # Elastic IP for NAT Gateway
 resource "aws_eip" "terra-eip" {
-#   domain = "vpc"
+  #   domain = "vpc"
   tags = {
     Name = "${local.env}-nat"
   }
-  depends_on = [ aws_internet_gateway.terra-ig ]
+  depends_on = [aws_internet_gateway.terra-ig]
 
 }
 

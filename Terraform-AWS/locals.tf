@@ -6,3 +6,4 @@ locals {
   eks_name    = "terra-eks-cluster"
   eks_version = "1.34"
 }
+

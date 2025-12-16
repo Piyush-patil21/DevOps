@@ -13,7 +13,7 @@ resource "aws_route_table" "terra-private-route" {
   vpc_id = aws_vpc.terra-vpc.id
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = "${aws_nat_gateway.terra-nat.id}"
+    nat_gateway_id = aws_nat_gateway.terra-nat.id
   }
   tags = {
     Name = "${local.env}-private"
@@ -31,6 +31,10 @@ resource "aws_route_table_association" "route-public" {
 }
 
 resource "aws_route_table_association" "route-private" {
-  subnet_id      = aws_subnet.terra-subnet-private.id
+  for_each = {
+    private  = aws_subnet.terra-subnet-private.id,
+    private2 = aws_subnet.terra-subnet-private2.id
+  }
+  subnet_id = each.value
   route_table_id = aws_route_table.terra-private-route.id
 }
