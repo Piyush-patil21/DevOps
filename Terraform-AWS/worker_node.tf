@@ -37,7 +37,7 @@ resource "aws_eks_node_group" "terra-managed-node-group" {
   ]
 
   capacity_type  = "ON_DEMAND"
-  instance_types = ["t2.medium"]
+  instance_types = ["c7i-flex.large"]
 
   scaling_config {
     desired_size = 1

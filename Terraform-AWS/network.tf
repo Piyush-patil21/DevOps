@@ -47,12 +47,14 @@ resource "aws_subnet" "terra-subnet-private" {
 }
 
 # Always prefer having two private subnets in different az's as terraform will not spin resource if the cluster don't find two subnets with different az's
+# Subnets specified must be in at least two different AZs. Otherwise operation error EKS: CreateCluster occurs
+
 resource "aws_subnet" "terra-subnet-private2" {
   vpc_id            = aws_vpc.terra-vpc.id
   cidr_block        = "172.168.12.0/24"
   availability_zone = local.zone1
   tags = {
-    Name                                      = "${local.env}-terra-subnet3"
+    Name                                      = "${local.env}-terra-subnet4"
     "kubernetes.io / role / internal-elb"     = 1
     "kubernetes.io/cluster/${local.eks_name}" = "owned"
   }

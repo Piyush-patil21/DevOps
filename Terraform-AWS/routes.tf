@@ -32,9 +32,9 @@ resource "aws_route_table_association" "route-public" {
 
 resource "aws_route_table_association" "route-private" {
   for_each = {
-    private  = aws_subnet.terra-subnet-private.id,
+    private  = aws_subnet.terra-subnet-private.id
     private2 = aws_subnet.terra-subnet-private2.id
   }
-  subnet_id = each.value
+  subnet_id      = each.value
   route_table_id = aws_route_table.terra-private-route.id
 }
