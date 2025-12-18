@@ -1,3 +1,4 @@
+# Add user named developer in AWS
 resource "aws_iam_user" "terra_developer" {
   name = "developer"
 
@@ -25,6 +26,7 @@ resource "aws_iam_policy" "developer_eks" {
     POLICY
 }
 
+# Attach policy to the user (developer user)
 resource "aws_iam_user_policy_attachment" "developer_eks" {
   user       = aws_iam_user.terra_developer.name
   policy_arn = aws_iam_policy.developer_eks.arn

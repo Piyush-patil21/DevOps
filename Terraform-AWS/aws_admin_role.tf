@@ -2,6 +2,7 @@
 data "aws_caller_identity" "admin" {
 }
 
+# Create IAM role
 resource "aws_iam_role" "eks_admin" {
   name               = "${local.env}-${local.eks_name}-eks-admin"
   assume_role_policy = <<POLICY
@@ -19,6 +20,7 @@ resource "aws_iam_role" "eks_admin" {
 }
 POLICY
 }
+
 
 resource "aws_iam_policy" "eks_admin" {
   name = "AmazonEKSAdminPolicy"
@@ -49,11 +51,13 @@ resource "aws_iam_policy" "eks_admin" {
 POLICY
 }
 
+# Attach policy to the role
 resource "aws_iam_role_policy_attachment" "eks_admin" {
   role       = aws_iam_role.eks_admin.name
   policy_arn = aws_iam_policy.eks_admin.arn
 
 }
+
 
 resource "aws_iam_user" "devops" {
   name = "devops"
