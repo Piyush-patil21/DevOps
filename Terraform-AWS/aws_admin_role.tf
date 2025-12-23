@@ -3,6 +3,9 @@ data "aws_caller_identity" "admin" {
 }
 
 # Create IAM role
+# "AWS": "arn:aws:iam::${data.aws_caller_identity.admin.account_id}:root
+# by using root in principal, we specify that all users in that AWS account will get access to the role
+
 resource "aws_iam_role" "eks_admin" {
   name               = "${local.env}-${local.eks_name}-eks-admin"
   assume_role_policy = <<POLICY
@@ -61,36 +64,35 @@ resource "aws_iam_role_policy_attachment" "eks_admin" {
 
 resource "aws_iam_user" "devops" {
   name = "devops"
-
 }
 
-resource "aws_iam_policy" "eks_assume_admin" {
-  name = "AmazonEKSAssumeAdminPolicy"
+# resource "aws_iam_policy" "eks_assume_admin" {
+#   name = "AmazonEKSAssumeAdminPolicy"
 
-  policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "sts:AssumeRole"
-            ],
-            "Resource": "${aws_iam_role.eks_admin.arn}"
-        }
-    ]
-}
-POLICY
-}
+#   policy = <<POLICY
+# {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "sts:AssumeRole"
+#             ],
+#             "Resource": "${aws_iam_role.eks_admin.arn}"
+#         }
+#     ]
+# }
+# POLICY
+# }
 
-resource "aws_iam_user_policy_attachment" "devops_user" {
-  user       = aws_iam_user.devops.name
-  policy_arn = aws_iam_policy.eks_assume_admin.arn
-}
+# resource "aws_iam_user_policy_attachment" "devops_user" {
+#   user       = aws_iam_user.devops.name
+#   policy_arn = aws_iam_policy.eks_assume_admin.arn
+# }
 
 # Use EKS API to bind IAM role with RBAC group inside kubernetes
-resource "aws_eks_access_entry" "devops_binding" {
-  cluster_name      = aws_eks_cluster.terra-eks-cluster.name
-  principal_arn     = aws_iam_role.eks_admin.arn
-  kubernetes_groups = ["my-admin"]
-}
+# resource "aws_eks_access_entry" "devops_binding" {
+#   cluster_name      = aws_eks_cluster.terra-eks-cluster.name
+#   principal_arn     = aws_iam_role.eks_admin.arn
+#   kubernetes_groups = ["my-admin"]
+# }

@@ -1,0 +1,13 @@
+# metrics-server.yaml defines runtime arguments for the metrics-server container
+# --cert-dir = Tells Metrics Server where to store self-signed TLS certificates
+# --kubelet-preferred-address-types = Defines the order of IP that Metrics Server uses to talk to kubelets
+# --kubelet-use-node-status-port = Metrics Server uses the port reported in Node status to communicate with kubelet (default= 10250)
+# --metric-resolution = Metrics Server collects metrics every 15 seconds
+# --secure-port = Metrics Server exposes its HTTPS endpoint on 10250 (port for scraping metrics)
+---
+defaultArgs:
+  - --cert-dir=/tmp
+  - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+  - --kubelet-use-node-status-port
+  - --metric-resolution=15s
+  - --secure-port=10250

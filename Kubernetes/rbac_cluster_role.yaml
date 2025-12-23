@@ -9,4 +9,3 @@ rules:
   # objects is "secrets"
   resources: ["deployments", "pods", "configmaps", "services", "secrets"]
   verbs: ["get", "watch", "list"]
-

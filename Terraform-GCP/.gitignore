@@ -1,5 +1,5 @@
 terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
-
-
+.terraform/providers/registry.terraform.io/hashicorp/google/7.11.0/windows_386/LICENSE.txt
+.terraform/providers/registry.terraform.io/hashicorp/google/7.11.0/windows_386/terraform-provider-google_v7.11.0_x5.exe
