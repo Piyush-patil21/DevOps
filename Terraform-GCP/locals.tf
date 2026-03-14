@@ -1,5 +1,5 @@
-# locals {
-#   project = "project-id"
-#   region = "region"
-#   env = ""
-# }
+locals {
+  project = var.project_id
+  region  = var.region
+  #   env = ""
+}

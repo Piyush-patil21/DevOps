@@ -9,15 +9,27 @@
 #   description = "token"
 # }
 
-variable "project" {
-  type        = string
+variable "project_id" {
+  type    = string
   default = "<project-id>"
 }
 
 variable "region" {
-  type = string
-  default = "asia-south1"
-  
+  type    = string
+  default = "us-central1"
+
+}
+
+variable "zone" {
+  type    = string
+  default = "us-central1-a"
+
+}
+
+variable "machine_type" {
+  type    = string
+  default = "e2-medium"
+
 }
 
 #List the services you want to enabled. Service name should be as listed in GCP documentation 
@@ -27,6 +39,7 @@ variable "gcp_service_list" {
     "compute.googleapis.com",
     "iam.googleapis.com",
     # "storage.googleapis.com",
+    "container.googleapis.com",
     "secretmanager.googleapis.com"
   ]
 }
