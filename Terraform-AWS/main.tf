@@ -161,8 +161,8 @@ module "rds_db_instance" {
 
 
 # When specifying the value for output block you should always use "module.<module_name>.<output_name>" format.
-output "vpc_default_route" {
-  value       = module.networking.vpc_default_route
-  description = "This will let know about the route table id of default route"
-}
+# output "vpc_default_route" {
+#   value       = module.networking.vpc_default_route
+#   description = "This will let know about the route table id of default route"
+# }
 
