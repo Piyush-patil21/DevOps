@@ -24,23 +24,35 @@ pipeline {
                 sh 'ls -la'
             }
         }
-        // stage('Initialize') {
-        //     
-        //     steps {
-        //         sh 'pwd'
-        //         echo 'Initializing...'
-        //     }
-        // }
+
+        stage('Initialize') {
+            
+            steps {
+                withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']){
+                    dir('Terraform-AWS') {
+                        sh 'pwd'
+                        sh 'terraform init'
+                        sh 'sleep 10'
+                        sh 'terraform fmt'
+                        sh 'terraform validate'
+
+                    }
+                }
+
+            }
+        }
 
         stage('Plan') {
 
             steps {
                 script {
                     if (params.TERRAFORM_PLAN) {
-                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush'])
-                        echo 'Running Terraform Plan...'
-                        sh 'terraform plan'
-                        echo 'Planning...'
+                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']){
+                            dir('Terraform-AWS') {
+                                sh 'terraform plan'
+                                echo 'Planning...'
+                            }
+                        }
                     } else {
                         echo 'Skipping Terraform Plan...'
                     }
@@ -54,12 +66,14 @@ pipeline {
             steps {
                 script {
                     if (params.TERRAFORM_APPLY) {
-                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush'])
-                        sh 'terraform apply -auto-approve'
-                        echo 'Applying...'
+                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']){
+                            dir('Terraform-AWS') {
+                                sh 'terraform apply -auto-approve'
+                                echo 'Applying...'
+                            }
+                        }
                     } else {
                         echo 'Skipping Terraform Apply...'
-                        return
                     }
                 }
 
@@ -71,9 +85,14 @@ pipeline {
             steps {
                 script  {   
                     if (params.TERRAFORM_DESTROY) {
-                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush'])
-                        sh 'terraform destroy -auto-approve'
-                        sh 'Destroying...'
+                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']){
+                            dir('Terraform-AWS') {
+                                sh 'terraform destroy'
+                                echo 'Destroying...'
+                            }
+                        }
+                    } else {
+                        echo 'Skipping Terraform Destroy'
                     }
                 }
             }
