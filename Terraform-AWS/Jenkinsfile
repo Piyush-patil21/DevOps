@@ -28,7 +28,7 @@ pipeline {
         stage('Initialize') {
             
             steps {
-                withcredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
                     dir('Terraform-AWS') {
                         sh 'pwd'
                         sh 'terraform init'
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     if (params.TERRAFORM_PLAN) {
-                        withcredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
                             dir('Terraform-AWS') {
                                 sh 'terraform plan'
                                 echo 'Planning...'
@@ -66,7 +66,7 @@ pipeline {
             steps {
                 script {
                     if (params.TERRAFORM_APPLY) {
-                        withcredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
                             dir('Terraform-AWS') {
                                 sh 'terraform apply -auto-approve'
                                 echo 'Applying...'
@@ -85,7 +85,7 @@ pipeline {
             steps {
                 script  {   
                     if (params.TERRAFORM_DESTROY) {
-                        withcredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']]){
                             dir('Terraform-AWS') {
                                 sh 'terraform destroy'
                                 echo 'Destroying...'
