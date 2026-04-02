@@ -21,19 +21,7 @@ resource "aws_subnet" "terra-subnet-public1" {
   }
 }
 
-# resource "aws_subnet" "terra-subnet-public2" {
-#     vpc_id = "${aws_vpc.terra-vpc.id}"
-#     cidr_block = "172.168.4.0/24"
-#     assign_ipv6_address_on_creation = false
-#     availability_zone = "${local.zone1}"
-#     map_public_ip_on_launch = "true"
-#     tags = {
-#       Name = "${local.env}-terra-subnet2"
-#       kubernetes.io/role/elb = 1
-#       "kubernetes.io/cluster/${local.eks_name}" = "owned"
-#     }
-# }
-
+/*  For Commenting multiple lines or a paragraph in terraform we can use /* as shown below
 resource "aws_subnet" "terra-subnet-private" {
   vpc_id            = aws_vpc.terra-vpc.id
   cidr_block        = "172.168.8.0/24"
@@ -44,7 +32,7 @@ resource "aws_subnet" "terra-subnet-private" {
     "kubernetes.io/cluster/${local.eks_name}" = "owned"
   }
 
-}
+}*/
 
 # Always prefer having two private subnets in different az's as terraform will not spin resource if the cluster don't find two subnets with different az's
 # Subnets specified must be in at least two different AZs. Otherwise operation error EKS: CreateCluster occurs
