@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(name: 'TERRAFORM_PLAN', defaultValue: false, description: 'Run Terraform Plan')
+        booleanParam(name: 'TERRAFORM_APPLY', defaultValue: false, description: 'Run Terraform Apply')
+        booleanParam(name: 'TERRAFORM_DESTROY', defaultValue: false, description: 'Run Terraform Destroy')
+    }
+
+    stages {
+        stage('CLone Repository') {
+            steps {
+
+                // Clean workspace before cloning
+                deleteDir() 
+                echo 'Cloning repository...'
+                git branch: 'main', url: https://github.com/Piyush-patil21/DevOps.git'
+            }
+        }
+
+        stage ('Directory check') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+        // stage('Initialize') {
+        //     
+        //     steps {
+        //         sh 'pwd'
+        //         echo 'Initializing...'
+        //     }
+        // }
+
+        stage('Plan') {
+
+            steps {
+                script {
+                    if (params.TERRAFORM_PLAN) {
+                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush'])
+                        echo 'Running Terraform Plan...'
+                        sh 'terraform plan'
+                        echo 'Planning...'
+                    } else {
+                        echo 'Skipping Terraform Plan...'
+                    }
+                }
+
+            }
+        }
+
+        stage('Apply') {
+            
+            steps {
+                script {
+                    if (params.TERRAFORM_APPLY) {
+                        withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush'])
+                        sh 'terraform apply -auto-approve'
+                        echo 'Applying...'
+                    } else {
+                        echo 'Skipping Terraform Apply...'
+                        return
+                    }
+                }
+
+            }
+        }  
+
+        stage('Destroy') {
+            
+            steps {
+                if (params.TERRAFORM_DESTROY) {
+                    withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush'])}
+                    sh 'terraform destroy -auto-approve'
+                    echo 'Destroying...'
+            }
+        }
+    }
+
+} 

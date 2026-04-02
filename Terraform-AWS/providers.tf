@@ -1,6 +1,7 @@
 provider "aws" {
   profile = "piyush21"
-  region  = "ap-south-1"
+  # region  = "ap-south-1"
+  region  = "us-east-1"
   # version = ""
 
 }

@@ -1,3 +1,4 @@
+/*
 module "networking" {
   source           = "./module-2/networking"
   vpc_cidr         = var.vpc_cidr
@@ -64,7 +65,7 @@ module "certificate-manager" {
   domain_name    = "jenkins.goprotech.click"
   hosted_zone_id = module.hosted-zone.hosted_zone_id
 
-}
+}       */
 
 
 module "python-app-networking" {
