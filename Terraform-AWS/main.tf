@@ -94,6 +94,7 @@ module "python-app-server" {
   security_group_id           = module.python-app-sg.python_app_sg_id
   python_app_basic_sg_id      = module.python-app-sg.python_app_basic_sg_id
   python_app_user_data        = templatefile("./module-3/apache-install/install_apache.sh", {})
+  public_key_name             = var.public_key_name
 
 }
 

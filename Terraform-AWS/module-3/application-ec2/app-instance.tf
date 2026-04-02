@@ -4,7 +4,14 @@ variable "python_app_public_subnet_id" {}
 variable "security_group_id" {}
 variable "python_app_basic_sg_id" {}
 variable "python_app_user_data" {}
+variable "public_key_name" {}
 
+
+resource "aws_key_pair" "demo-key-pair" {
+    key_name = "aws-key"
+    public_key = var.public_key_name
+  
+}
 
 resource "aws_instance" "python-app-instance" {
   ami           = var.ami_id
