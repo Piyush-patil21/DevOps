@@ -14,7 +14,7 @@ pipeline {
                 // Clean workspace before cloning
                 deleteDir() 
                 echo 'Cloning repository...'
-                git branch: 'main', url: https://github.com/Piyush-patil21/DevOps.git'
+                git branch: 'main', url: 'https://github.com/Piyush-patil21/DevOps.git'
             }
         }
 
