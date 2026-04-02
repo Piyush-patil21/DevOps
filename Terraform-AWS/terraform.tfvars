@@ -21,5 +21,5 @@ python_app_vpc_name      = "dev-python-app-vpc"
 python_app_vpc_cidr      = "178.168.16.0/20"
 python_app_public_cidr   = ["178.168.16.0/24", "178.168.20.0/24"]
 python_app_private_cidr  = ["178.168.24.0/24", "178.168.28.0/24"]
-python_app_av_zone1      = ["eu-east-1a", "eu-east-1b"]
+python_app_av_zone1      = ["us-east-1a", "us-east-1b"]
 python_app_domain_name   = "goprotech.click"
