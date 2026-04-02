@@ -30,6 +30,7 @@ pipeline {
             steps {
                 withcredentials([$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds-piyush']){
                     dir('Terraform-AWS') {
+                        sh 'sudo su'
                         sh 'pwd'
                         sh 'terraform init'
                         sh 'sleep 10'
